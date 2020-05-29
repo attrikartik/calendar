@@ -6,6 +6,9 @@ class  Calendar extends Component  {
 
   state = {
     events : {},    
+    title: '',
+    description:'',
+    guests: '',
     currentDate: null,
     showModal: false
   }
@@ -50,6 +53,9 @@ class  Calendar extends Component  {
   eventHandler = ( title, description, guests) => {
     this.setState((prevState) => ({
     showModal: !prevState.showModal,
+    title: title,
+    description: description,
+    guests: guests
     }))
     
     const date = this.state.currentDate
@@ -61,7 +67,7 @@ class  Calendar extends Component  {
   render () {
     return(
       <React.Fragment>
-        { this.state.showModal && <Modal eventHandle={this.eventHandler}/>}
+        { this.state.showModal && <Modal title={this.state.title} desc={this.state.description} guests={this.state.guests} eventHandle={this.eventHandler}/>}
         <DayPicker
          canChangeMonth={true}
          className="Events"

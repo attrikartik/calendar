@@ -13,8 +13,8 @@ export default function AlertDialog( props ) {
   const [description, setDescription] = React.useState('')
   const [guests, setGuests] = React.useState('')
 
-  const handleInput = event => {
-    const { name, value } = event.target
+    const handleInput = event => {
+      const { name, value } = event.target
       if(name === 'title'){
         setTitle(value)
       }
@@ -24,12 +24,20 @@ export default function AlertDialog( props ) {
       else{
         setGuests(value)
       }
-  }
+    }
 
-  const handleClose = () => {
-    setOpen(false);
-    props.eventHandle(title,description,guests)
-  };
+    const handleClose = () => {
+       if(title != ''){
+        props.eventHandle(title,description,guests)
+        setOpen(false);
+      }else{
+        alert('Please fill title')
+      }
+    }
+  
+    const handleCancel = () => {
+        setOpen(false)
+   };
 
   return (
     <div>
@@ -41,12 +49,12 @@ export default function AlertDialog( props ) {
       >   
         <DialogTitle id="alert-dialog-title">EVENT</DialogTitle>
           <DialogContent>         
-            <TextField id="title" label="TITLE" name='title' value={title} onChange={handleInput}/><br/>
+            <TextField id="title" label="TITLE **" name='title' value={title} onChange={handleInput}/><br/>
             <TextField id="description" label="DESCRIPTION" value={description} name='description' onChange={handleInput}/><br/>
             <TextField id="guests" label="ADD Guests" value={guests} name='guests' onChange={handleInput}/>
           </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleCancel} color="primary">
             Cancel
           </Button>
           <Button onClick={handleClose} color="primary" autoFocus>
